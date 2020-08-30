@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title User Manager
+        h1 User Manager
+        link(rel='stylesheet', href='styles/styles.css')
+    body
+        div.container
+            form(action="/createUser", method="POST")
+                div.inputfield
+                    label(for='firstname') First Name: 
+                    input(name='firstname')
+                div(class='inputfield')
+                    label(for='lastname') Last Name:
+                    input(name='lastname')
+                div(class='inputfield')
+                    label(for='email') Email:
+                    input(name='email', type='email')
+                div(class='inputfield')
+                    label(for='age') Age:
+                    input(name='age', type='number')
+                div(class='inputfield')
+                    label(for='password') Password:
+                    input(name='password', type='password')
+                div
+                    button(type='submit') Add User
+            h4 
+                a(href='localhost:5000/api/users-list') View Users
