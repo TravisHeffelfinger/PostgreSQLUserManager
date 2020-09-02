@@ -16,10 +16,12 @@ router.post('/add-student', (req, res) => {
 router.get('/search', (req, res) => {
     res.send('search')
 })
+
 router.post('/edit-student/:name', (req, res) => {
     let name = req.params.name;
     client.query('')
 })
+
 router.get('/students', (req, res) => {
     client.query('select * from students', (err, result) => {
         if(err) console.log(err)
