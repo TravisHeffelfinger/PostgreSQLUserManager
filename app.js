@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true , }))
 
 app.set("views", "./views");
 app.set("view engine", "pug");
-//app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "views")));
 app.use('/api', routes)
 
 app.listen(port, () => {

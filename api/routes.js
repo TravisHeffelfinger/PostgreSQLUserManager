@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router();
 const client = require('./db')
 
-router.get('/', (req, res) => {
-    res.render('index') 
-})
+// router.get('/api', (req, res) => {
+//     res.render('index') 
+// })
 
 router.post('/add-student', (req, res) => {
     client.query('insert into students (first_name, last_name, email, age) values ($1, $2, $3, $4) returning *', [req.body.firstname, req.body.lastname, req.body.email, req.body.age], (err, result) => {
