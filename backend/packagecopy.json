@@ -1,6 +1,9 @@
 {
   "name": "postgresql-user-manager",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.14.7"},
   "description": "Project #8 hosted on Heroku",
   "main": "index.js",
   "scripts": {
