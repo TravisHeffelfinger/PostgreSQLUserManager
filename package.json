@@ -13,6 +13,13 @@
   },
   "keywords": [],
   "author": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.3.2",
+    "pug": "^3.0.0",
+    "uuid": "^8.3.0"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TravisHeffelfinger/PostgreSQLUserManager/issues"
