@@ -11,12 +11,16 @@ router.post('/add-student', (req, res) => {
     })
 })
 
-router.get('/search', (req, res) => {
-    res.send('search')
+router.post('/search', (req, res) => {
+    console.log('search term: ', req.body.first)
+    client.query('select * from students where first_name ~* $1',[`(^${req.body.first}.*)`], (err, result) => {
+        if(err) console.log(err)
+        res.send(result.rows)
+    })
 })
 router.get('/edit-student/:id', (req, res) => {
     let id = req.params.id;
-    client.query('select * from students where id = $1', [id], (err, result) => {
+    client.query('select * from students where id like $1', [id], (err, result) => {
         if(err) console.log(err)
         res.send(result.rows)
     })
@@ -28,7 +32,6 @@ router.post('/update-student/:id', (req, res) => {
         [req.body.first_name, req.body.last_name, req.body.email, req.body.age, req.params.id],
          (err, result) => {
          if(err) console.log(err)
-         //console.log(result.rows)
          res.send(result.rows)
     })
 });
@@ -49,13 +52,25 @@ router.post('/delete/:id', (req, res) => {
     res.redirect('back')
 })
 
-router.get('/students/:name', (req, res) => {
-    let name = req.params.name;
-    client.query('select * from students where first_name = $1', [name], (err, result) => {
-        if(err) console.log(err)
-        //console.log(result.rows)
-        res.send(result.rows)
-    })
+router.get('/students/:check', (req, res) => {
+    let check = req.params.check;
+    if(check === 'ascending') {
+        client.query('select * from students order by first_name asc')
+        .then(response => {
+            res.send(response.rows)
+        }, reject => {
+            console.log(reject)
+            res.redirect('back')
+        })
+    } else if (check === 'descending') {
+        client.query('select * from students order by first_name desc')
+        .then(response => {
+            res.send(response.rows)
+        }, reject => {
+            console.log(reject)
+            res.redirect('back')
+        })
+    }
 })
 
 module.exports = router;
