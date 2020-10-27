@@ -1,8 +1,6 @@
 const pg = require('pg')
 
-const connectionString = 'postgres://postgres:postgres@localhost:5432/dvdrental';
-
-const client = new pg.Client(connectionString);
+const client = new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}});
 client.connect();
 
 module.exports = client;
