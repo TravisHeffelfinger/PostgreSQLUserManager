@@ -4,8 +4,8 @@
   "description": "Project #8 hosted on Heroku",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app && npm start --prefix ./postgres-demo-client",
+    "test": "node app && npm start --prefix ./postgres-demo-client",
+    "start": "node app",
     "prod": "cd postgres-demo-client && npm run build && cd .. && node app"
   },
   "repository": {
