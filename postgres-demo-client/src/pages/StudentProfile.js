@@ -9,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
-// import Button from '@material-ui/core/Button'
+import { CardHeader } from "@material-ui/core";
 
 const styles = {
   items: {
@@ -92,92 +92,90 @@ export class StudentProfile extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <Grid container direction="row" justify="center">
-        <Grid item xs={3} md={2} />
-        <Grid item xs={6} sm={3} md={8}>
-          <Card>
-            <Typography variant="h1" className={classes.title}>
-              {`${this.state.student.first_name} ${this.state.student.last_name}`}
-            </Typography>
-            <hr />
-            {!this.state.edit && (
-              <>
-                <Typography variant="h5" className={classes.items}>
-                  First Name: {this.state.student.first_name}
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Last Name: {this.state.student.last_name}
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Email Address: {this.state.student.email}
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Age: {this.state.student.age}
-                </Typography>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={this.handleEdit}
-                >
-                  Edit
-                </Button>{" "}
-                <Button color="secondary" onClick={this.handleDelete}>
-                  Delete
-                </Button>
-              </>
-            )}
-            {this.state.edit && (
-              <form noValidate autoComplete="off">
-                <Typography variant="h5" className={classes.items}>
-                  First Name:{" "}
-                  <TextField
-                    name="first_name"
-                    placeholder={this.state.student.first_name}
-                    onChange={this.handleInput}
-                  />
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Last Name:{" "}
-                  <TextField
-                    name="last_name"
-                    placeholder={this.state.student.last_name}
-                    onChange={this.handleInput}
-                  />
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Email Address:{" "}
-                  <TextField
-                    type="email"
-                    name="email"
-                    placeholder={this.state.student.email}
-                    onChange={(e) => this.handleInput(e)}
-                  />
-                </Typography>
-                <Typography variant="h5" className={classes.items}>
-                  Age:{" "}
-                  <TextField
-                    type="number"
-                    name="age"
-                    placeholder={this.state.student.age.toString()}
-                    onChange={(e) => this.handleInput(e)}
-                  />
-                </Typography>
-                <Button
-                  onClick={(e) => this.handleSave(e)}
-                  variant="contained"
-                  type="submit"
-                >
-                  save
-                </Button>{" "}
-                <Button variant="contained" onClick={this.handleCancel}>
-                  cancel
-                </Button>
-              </form>
-            )}
-          </Card>
+      <div className="page-container">
+        <Grid container direction="row" justify="center">
+          <Grid item xs={6} sm={3} md={8}>
+            <Card>
+              <CardHeader
+                title={`${this.state.student.first_name} ${this.state.student.last_name}`}
+              />
+              <hr />
+              {!this.state.edit && (
+                <CardContent>
+                  <Typography variant="h5" className={classes.items}>
+                    First Name: {this.state.student.first_name}
+                  </Typography>
+                  <Typography variant="h5" className={classes.items}>
+                    Last Name: {this.state.student.last_name}
+                  </Typography>
+                  <Typography variant="h5" className={classes.items}>
+                    Email Address: {this.state.student.email}
+                  </Typography>
+                  <Typography variant="h5" className={classes.items}>
+                    Age: {this.state.student.age}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={this.handleEdit}
+                  >
+                    Edit
+                  </Button>{" "}
+                  <Button color="secondary" onClick={this.handleDelete}>
+                    Delete
+                  </Button>
+                </CardContent>
+              )}
+              {this.state.edit && (
+                <CardContent>
+                  <form noValidate autoComplete="off">
+                    <TextField
+                      name="first_name"
+                      label="First name"
+                      fullWidth
+                      placeholder={this.state.student.first_name}
+                      onChange={this.handleInput}
+                    />
+                    <TextField
+                      name="last_name"
+                      label="Last name"
+                      fullWidth
+                      placeholder={this.state.student.last_name}
+                      onChange={this.handleInput}
+                    />
+                    <TextField
+                      type="email"
+                      name="email"
+                      label="Email"
+                      fullWidth
+                      placeholder={this.state.student.email}
+                      onChange={(e) => this.handleInput(e)}
+                    />
+                    <TextField
+                      type="number"
+                      name="age"
+                      label="Age"
+                      fullWidth
+                      placeholder={this.state.student.age.toString()}
+                      onChange={(e) => this.handleInput(e)}
+                    />
+                    <Button
+                      onClick={(e) => this.handleSave(e)}
+                      variant="contained"
+                      type="submit"
+                    >
+                      save
+                    </Button>{" "}
+                    <Button variant="contained" onClick={this.handleCancel}>
+                      cancel
+                    </Button>
+                  </form>
+                </CardContent>
+              )}
+            </Card>
+          </Grid>
         </Grid>
-        <Grid item xs={3} md={2} />
-      </Grid>
+      </div>
     );
   }
 }

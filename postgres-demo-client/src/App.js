@@ -7,7 +7,6 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import './App.css';
 import home from './pages/home'
 import NavBar from './components/NavBar';
-import StudentProfile from './pages/StudentProfile';
 import AddStudent from './pages/AddStudent'
 
 const theme = createMuiTheme({

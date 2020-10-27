@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { CardHeader } from "@material-ui/core";
 
 const styles = {
   items: {
@@ -37,9 +37,6 @@ const styles = {
   buttonStyle: {
     marginTop: 20,
     marginBottom: 30,
-    marginLeft: "40%",
-    marginRight: 30,
-    padding: 10,
   },
 };
 
@@ -65,28 +62,25 @@ export class AddStudent extends Component {
   };
 
   handleChange = (event) => {
-    const {first_name, last_name, email, age} = this.state
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);  
   };
 
   handleCreate = (event) => {
     event.preventDefault();
-    const {first_name, last_name, email, age, firstErr, lastErr, emailErr, ageErr} = this.state
+    const {first_name, last_name, email, age } = this.state
     !first_name.length ? this.setState({firstErr: true}) : this.setState({firstErr: false})
     !last_name.length ? this.setState({lastErr: true}) : this.setState({lastErr: false})
     !email.length ? this.setState({emailErr: true}) : this.setState({emailErr: false})
     !age.length ? this.setState({ageErr: true}) : this.setState({ageErr: false})
     if(first_name.length && last_name.length && email.length && age.length) {
         axios.post('/api/add-student', this.state).then(res => {
-            console.log(res.data)
             this.setState({redirect: true})
         })
     }
     
   };
   render() {
-    const { loading, redirect } = this.state;
+    const { loading, redirect, firstErr, lastErr, emailErr, ageErr, buttonState } = this.state;
     const { classes } = this.props;
     if (loading) {
       return <div>Loading...</div>;
@@ -99,67 +93,58 @@ export class AddStudent extends Component {
         <Grid container direction="row" justify="center">
           <Grid item xs={6} sm={3} md={8}>
             <Card className={classes.contentArea}>
-              <div className={classes.heading}>
-                <Typography variant="h3"> Welcome!</Typography>
-                <Typography variant="h4">
-                  Please enter your information
-                </Typography>
-              </div>
+              <CardHeader className={classes.heading} title="Welcome!" subheader="Please enter your information"/>
+              <CardContent>
               <form noValidate autoComplete="off">
-                <Typography variant="h6" className={classes.itemMargin}>
-                  First Name:{" "}
                   <TextField
                     type="text"
                     name="first_name"
-                    required={true}
-                    fullWidth={true}
-                    error={this.state.firstErr}
+                    label="First Name"
+                    required
+                    fullWidth
+                    error={firstErr}
                     autoFocus
                     onChange={this.handleChange}
                   />
-                </Typography>
-                <Typography variant="h6" className={classes.itemMargin}>
-                  Last Name:{" "}
                   <TextField
                     type="text"
                     required
                     name="last_name"
-                    fullWidth={true}
-                    error={this.state.lastErr}
+                    label="Last Name"
+                    fullWidth
+                    error={lastErr}
                     onChange={this.handleChange}
                   />
-                </Typography>
-                <Typography variant="h6" className={classes.itemMargin}>
-                  email:{" "}
                   <TextField
                     type="email"
                     name="email"
-                    fullWidth={true}
+                    label="Email"
+                    fullWidth
                     required
-                    error={this.state.emailErr}
+                    error={emailErr}
                     onChange={this.handleChange}
                   />
-                </Typography>
-                <Typography variant="h6" className={classes.itemMargin}>
-                  Age:{" "}
                   <TextField
                     type="number"
                     name="age"
+                    label="Age"
                     required
-                    error={this.state.ageErr}
+                    fullWidth
+                    error={ageErr}
                     onChange={this.handleChange}
                   />
-                </Typography>
                 <Button
                   color="primary"
-                  disabled={this.state.buttonState}
+                  disabled={buttonState}
                   variant="contained"
+                  fullWidth
                   onClick={this.handleCreate}
                   className={classes.buttonStyle}
                 >
                   Create
                 </Button>
               </form>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
