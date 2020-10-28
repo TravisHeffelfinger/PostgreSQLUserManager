@@ -13,6 +13,10 @@ app.use(express.urlencoded({ extended: true , }))
 app.use('/api', routes)
 app.use(express.static(path.join(__dirname, 'postgres-demo-client/build')));
 
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
 app.listen(port, () => {
     console.log('server is listening on port ', port)
 })
